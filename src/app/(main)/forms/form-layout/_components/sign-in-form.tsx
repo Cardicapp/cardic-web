@@ -3,9 +3,10 @@ import InputGroup from "@/components/FormElements/InputGroup";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import Link from "next/link";
 
-export function SignInForm() {
+export function SignInForm(props: React.HTMLAttributes<HTMLDivElement>) {
+  const {title = "Sign In Form"} = props;
   return (
-    <ShowcaseSection title="Sign In Form" className="!p-6.5">
+    <ShowcaseSection title={title} className="!p-6.5">
       <form action="#">
         <InputGroup
           label="Email"
