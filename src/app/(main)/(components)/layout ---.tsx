@@ -10,7 +10,7 @@ import { Header } from "@/components/Layouts/header";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import type { PropsWithChildren } from "react";
-import { Providers } from "./providers";
+import { Providers } from "../providers";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from "@/store/store";
@@ -31,20 +31,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <StoreProvider>
-          <Providers>
-            <NextTopLoader color="#5750F1" showSpinner={false} />
-
-            <div className="flex min-h-screen">
-              <Sidebar />
-
-              <div className="w-full bg-gray-2 dark:bg-[#020d1a]">
-                <Header />
-
-                <main className="isolate mx-auto w-full max-w-screen-2xl overflow-hidden p-4 md:p-6 2xl:p-10">
+          <Providers>            
                   {children}
-                </main>
-              </div>
-            </div>
           </Providers>
         </StoreProvider>
       </body>

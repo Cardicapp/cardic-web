@@ -1,0 +1,15 @@
+select {
+    width: 90%;
+    background: url(/assets/brand/arrow-down.png) no-repeat 98% 50%;
+    background-size: 16px 10px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    appearance: none;
+    outline-width: 0;
+    padding: 12px 15px;
+}
+
+input:focus {
+    outline-width: 0;
+}

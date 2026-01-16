@@ -1,0 +1,156 @@
+.mainContainer {
+    --header2-primary-color: #22C621;
+    --primary-color: #069905;
+    padding-top: 90px;
+    background-color: white;
+}
+
+.content {
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    background-color: white;
+}
+.leftContainer {
+    padding: 0px 60px;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'ClashDisplay-Regular';
+}
+.rightContainer {
+    padding: 20px;
+    background-color: #F2F2F2;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'ClashDisplay-Regular';
+}
+
+.currentRatesHeader {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.currentRatesDesc {
+    font-weight: 200;
+    letter-spacing: 1px;
+}
+
+.startTradeBtn {
+    cursor: pointer;
+}
+
+.textContainer {
+    padding: 12px 15px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.downloadAppContainer {
+    display: flex;
+    padding: 20px 50px;
+  }
+
+.appHomepageImageContainer {
+    width: 50%;
+    display: flex;
+    justify-content: end;
+  }
+
+  .appHomepageImage {
+    height: 500px;
+  }
+  .storeDownloadContainer .secondText {
+    margin-top: 10px;
+    padding-right: 10%;
+  }
+
+  .storeBtnContainer {
+    display: flex;
+    margin-top: 20px;
+  }
+
+   .playStoreBtn, 
+   .appStoreBtn  {
+    padding: 15px 50px;
+    background-color: rgba(53, 49, 49, 1);
+    color: white;
+    cursor: pointer;
+    font-family: 'ClashDisplay-Regular';
+    font-size: 18px;
+  }
+
+  .storeBtnContainer .playStoreBtn {
+    background-color: rgba(53, 49, 49, 1);
+  }
+
+  .storeBtnContainer .appStoreBtn {
+    margin-left: 20px;
+    background-color: rgba(23, 128, 22, 1);
+  }
+
+.storeDownloadContainer {
+    width: 50%;
+    /* background-color: blue; */
+    font-family: "ClashDisplay-Regular";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+  }
+
+  .storeDownloadContainer .secondText {
+    margin-top: 10px;
+    padding-right: 10%;
+  }
+
+
+@media screen and (max-width: 950px) {
+    .leftContainer {
+        display: none;
+    }
+    .rightContainer {
+        width: 80%;
+    }
+    .content {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .rightContainer {
+        width: 100%;
+    }
+    .content {
+        font-size: .8em;
+        padding: 5px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .storeDownloadContainer {
+        padding: 0;
+        width: 60%;
+    }
+    .downloadAppContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .storeDownloadContainer {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .content {
+        font-size: .65em;
+        padding: 0px;
+    }
+    
+}

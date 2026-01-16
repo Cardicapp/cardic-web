@@ -1,0 +1,658 @@
+.mainContainer {
+    --header2-primary-color: #22C621;
+    --primary-color: rgba(25, 142, 122, 1);
+    padding-top: 80px;
+    background-color: white;
+    /* width: 150vw; */
+}
+
+.productDescContainer {
+    height: 85vh;
+    width: 100%;
+    display: flex;
+    letter-spacing: 1.5px;
+    padding: 0px 60px;
+    padding-top: 50px;
+    background-color: rgba(25, 142, 122, 1);
+}
+.productText {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* margin-left: 40px; */
+    padding-top: 5%;
+    font-family: "ClashDisplay-Regular";
+    /* background-color: red; */
+}
+.productImage {
+    background-image: url(/assets/img/app-homepage-screen2.png);
+    background-position: 50% 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 100%;
+    /* margin-right: 30px; */
+    /* background-color: blue; */
+}
+.productImageMobile {
+    display: none;
+    background-image: url(/assets/img/app-homepage-screen2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 300px;
+    background-position: center;
+    margin-top: 40px;
+    /* background-color: red; */
+}
+
+.productText h2 {
+    font-weight: 400;
+    font-size: 60px;
+    color: white;
+}
+.productText h2 .tradingText {
+    color: var(--header2-primary-color);
+}
+
+.productText .secondText {
+    margin-top: 10px;
+    color: white;
+}
+
+.productText div {
+    font-weight: 300;
+}
+
+button.btn1 {
+    color: white;
+    background-color: rgba(53, 49, 49, 1);
+    margin-top: 40px;
+    padding: 20px 60px;
+}
+
+.howToContainer {
+    /* height: 300px; */
+    /* background-color: rgba(29, 161, 138, 1); */
+    background-image: linear-gradient(rgba(25, 142, 122, 1), white, white);
+    padding: 65px;
+    display: flex;
+    flex-direction: column;
+}
+
+.howToContainer h2 {
+    font-family: "ClashDisplay-Regular";
+    font-size: 48px;
+    text-align: center;
+}
+
+.videoElement {
+    height: 500px;
+    border-radius: 10px;
+    align-self: center;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.videoFrame {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.howToNumber {
+    background-color: black;
+    color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.howToNumber div {
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.howToContainer h2 {
+    color: white;
+}
+
+.howToContainer .signUpBtn {
+    align-self: start;
+    padding: 20px 30px;
+    background-color: rgba(53, 49, 49, 1);
+    color: white;
+    margin-top: 100px;
+    cursor: pointer;
+    font-family: 'ClashDisplay-Regular';
+    font-size: 18px;
+}
+
+.howToContainer .signUpBtn:hover {
+    background-color: rgba(53, 49, 49, .7);
+    /* color: white; */
+}
+
+.artCardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    padding: 80px 50px;;
+}
+
+.artCard, .artCard .surface {
+    height: 250px;
+    width: 400px;
+    background-color: rgba(6, 153, 5, .5);
+    border-radius: 20px;
+}
+.artCard .surface {
+    /* position: relative; */
+    /* top: -10px; */
+    /* left: 10px; */
+    background-color: rgba(6, 153, 5, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.artCard .surface1 {
+    /* background-color: red; */
+    width: 100%;
+    height: 55%;
+    display: flex;
+    flex-direction: row;
+} 
+.artCard .surface1 .text  {
+    /* background-color: green; */
+    color: white;
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+.artCard .surface1 .text * {
+    line-height: .8em;
+    letter-spacing: .9px;
+}
+
+.artCard .surface1 .logoContainer {
+    /* background-color: purple; */
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.artCard .surface1 .logoContainer .logo {
+    background-color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.artCard .surface1 .logoContainer .logoImg {
+    height: 60%;
+    /* background-color: red; */
+
+}
+
+.artCard .surface2 {
+    width: 100%;
+    height: 45%;
+    padding: 10px 130px 10px 20px;
+    color: white;
+    font-weight: 200;
+    letter-spacing: .8px;
+}
+
+.section2 {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px;
+}
+
+.iconInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 20%;
+    color: white;
+    letter-spacing: 0.5px;
+    padding: 0px 5px;
+    /* background-color: red; */
+}
+.iconInfoContainer h3 {
+    font-size: 1.3em;
+    
+}
+
+.iconInfoContainer .img * {
+    height: 75px;
+}
+
+.iconInfoContainer .img {
+    margin-bottom: 10%;
+}
+
+.iconInfoContainer .thinText {
+    font-weight: 200;
+    font-size: .8em;
+}
+
+.section3 {
+    display: flex;
+    flex-direction: row;
+    /* height: 50px; */
+}
+
+.section3 .promoImageContainer {
+    width: 65%;
+    /* background-color: red; */
+    padding: 45px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section3 .downloadBtnContainer {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section3 .promoImage {
+    height: 100%;
+    width: 100%;
+}
+
+.section3 .downloadImage {
+    height: 45%;
+    width: 70%;
+}
+
+
+.questionsContainer {
+    background-color: white;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #101742;
+    text-align: center;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  
+  .questionsTextbox {
+    margin-bottom: 50px;
+  }
+  
+  .questionsContainer h2 {
+    font-size: 38px;
+    text-align: center;
+    font-family: "ClashDisplay-Light", 'sans-serif';
+  }
+  
+  .questionsContainer p {
+    font-size: 16px;
+    /* margin-top: -20px; */
+    font-family: "Archivo", 'sans-serif';
+  }
+  
+  
+  .moreQuestions {
+    width: 90%;
+    background-color: rgba(41, 45, 56, 1);
+    padding: 26px 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .moreQuestions h3 {
+    margin-bottom: 30px;
+    font-family: "ClashDisplay-Medium", 'sans-serif';
+    color: white;
+  }
+  
+  .moreQuestions p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    font-family: "Archivo", 'sans-serif';
+    color: white;
+  }
+
+  .downloadAppContainer {
+    display: flex;
+    padding: 20px 50px;
+  }
+
+  .appHomepageImageContainer {
+    width: 50%;
+    display: flex;
+    justify-content: end;
+  }
+
+  .appHomepageImage {
+    height: 500px;
+  }
+
+  .storeDownloadContainer {
+    width: 50%;
+    /* background-color: blue; */
+    font-family: "ClashDisplay-Regular";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+  }
+
+  .storeDownloadContainer .secondText {
+    margin-top: 10px;
+    padding-right: 10%;
+  }
+
+  .storeBtnContainer {
+    display: flex;
+    margin-top: 20px;
+  }
+
+   .playStoreBtn, 
+   .appStoreBtn  {
+    padding: 15px 50px;
+    background-color: rgba(53, 49, 49, 1);
+    color: white;
+    cursor: pointer;
+    font-family: 'ClashDisplay-Regular';
+    font-size: 18px;
+  }
+
+  .storeBtnContainer .playStoreBtn {
+    background-color: rgba(53, 49, 49, 1);
+  }
+
+  .storeBtnContainer .appStoreBtn {
+    margin-left: 20px;
+    background-color: rgba(23, 128, 22, 1);
+  }
+
+  @media screen and (max-width: 1600px) {
+    .productDescContainer {
+        height: 70vh;
+    }
+  }
+
+  @media screen and (max-width: 1100px){
+    .playStoreBtn, .appStoreBtn {
+        padding: 10px 25px;
+    }
+    .productText h2 {
+        font-size: 35px;
+    }
+  }
+
+@media screen and (max-width: 1000px) {
+    .artCard, .artCard .surface {
+        height: 200px;
+        width: 350px;
+    }
+    .artCard .surface2 {
+        font-size: .9em;
+    }
+
+    .productDescContainer {
+        height: 45vh;
+        padding: 20px;
+
+    }
+
+    .productText h2 {
+        font-size: 30px;
+    }
+    .howToContainer {
+        padding: 20px;
+    }
+    
+    .btn1 {
+        margin-top: 10px;
+        padding: 5px 20px;
+    }
+    .howToContainer h2 {
+        font-size: 34px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    /* .artCard .surface2 {
+        font-size: .8em;
+    } */
+    .artCard, .artCard .surface {
+        height: 160px;
+        width: 250px;
+    }
+    .artCard .surface2 {
+        padding: 10px 100px 10px 10px;
+        letter-spacing: .8px;
+        font-size: .65em;
+
+    }
+    .artCard .surface1 .text * {
+        font-size: 1.4em;
+        letter-spacing: .5px;
+    }
+    .artCard .surface1 .text {
+        padding-left: 10px;
+        padding-bottom: 0px;
+    }
+    .productDescContainer {
+        padding: 0px;
+        padding-top: 40px;;
+        padding-left: 20px;
+        letter-spacing: 1.2px;
+    }
+    .section3 {
+        justify-content: space-between;
+    }
+    .section3 .promoImageContainer {
+        width: 60%;
+        /* padding: 0px; */
+    }
+    .section3 .downloadBtnContainer {
+        width: 40%;
+        /* justify-content: space-between; */
+        /* padding: 0px; */
+    }
+
+    .btn1 {
+        margin-top: 20px;
+        padding: 10px 30px;
+    }
+
+    .playStoreBtn, .appStoreBtn {
+        padding: 10px 15px;
+    }
+
+    .appHomepageImage {
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .playStoreBtn, .appStoreBtn {
+        padding: 10px 10px;
+        font-size: 14px;
+    }
+
+    .productText h2 {
+        font-size: 28px;
+    }
+
+    .howToContainer h2 {
+        font-size: 28px;
+    }
+    .questionsTextbox h2 {
+        font-size: 28px;
+    }
+    .videoElement {
+        height: 300px;
+        width: 95%;
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .artCardContainer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 30px 20px;
+    }
+
+    .artCard {
+        margin-top: 30px;
+    }
+
+    .artCard, .artCard .surface {
+        height: 200px;
+        width: 60vw;
+    }
+    .productDescContainer {
+        /* padding: 0px 10px; */
+        letter-spacing: 1px;
+        height: 65vh;
+        /* background-color: red; */
+    }
+    .productDescContainer .secondText, .productDescContainer .secondText ~ * {
+        font-size: .8emx;
+    }
+
+    .productText h2 {
+        font-size: 34px;
+    }
+
+    .section2 {
+        padding: 20px 0px;
+    }
+    .section2 .iconInfoContainer {
+        margin-right: 10px;
+    }
+    .iconInfoContainer h3 {
+        font-size: 1em;
+    }
+    
+    .iconInfoContainer .img * {
+        height: 50px;
+    }
+    
+    .iconInfoContainer .img {
+        margin-bottom: 5%;
+    }
+
+    .downloadAppContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .storeDownloadContainer {
+        padding: 0;
+        width: 60%;
+    }
+    .appHomepageImageContainer {
+        display: none;
+    }
+    .howToContainer h2 {
+        font-size: 24px;
+    }
+    
+}
+
+@media screen and (max-width: 600px) {
+    .howToItemContainer {
+        display: flex;
+        flex-direction: column;
+    }
+    .productText h2 {
+        font-size: 28px;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .productImage {
+        display: none;
+
+    }
+    .productImageMobile {
+        display: flex;
+        /* width: max-content; */
+    }
+    .productText {
+        width: 100%;
+        /* background-image: url(/assets/brand/product-image.png); */
+        /* background-size: contain;
+        background-repeat: no-repeat; */
+        /* width: 60%; */
+        /* height: 100%; */
+    }
+
+    .productDescContainer {
+        height: 50vh;
+        /* background-color: red; */
+    }
+
+    .artCard, .artCard .surface {
+        width: 100%;
+    }
+
+
+    .section3 .downloadImage {
+        height: 35%;
+        width: 65%;
+    }
+
+    .howToContainer .signUpBtn {
+        padding: 10px 10px;
+    }
+
+    .moreQuestions {
+        width: 95%;
+    }
+    .moreQuestions h3 {
+        margin-bottom: 30px;
+        font-size: 18px;
+    }
+      
+    .moreQuestions p {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .storeDownloadContainer {
+        width: 100%;
+    }
+
+    .videoElement {
+        height: 280px;
+        width: 100%;
+    }
+}
