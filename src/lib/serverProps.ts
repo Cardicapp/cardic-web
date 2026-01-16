@@ -1,4 +1,4 @@
-import client from '@lib/redis'
+import client from '@/lib/redis'
 // import { PermissionModuleEnum } from 'src/types/module';
 // import { checkHasPermission as checkHasPermission } from './utils';
 // import * as redis from "redis";

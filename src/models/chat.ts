@@ -1,4 +1,4 @@
-import { User } from 'src/types/user'
+import { User } from '@/types/user';
 import { CardFile } from './card'
 import { Trade } from './trade'
 

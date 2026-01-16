@@ -101,6 +101,7 @@ export function createRequestQueueInterceptor(
 ): number {
   if (typeof cache.requestQueueInterceptorId === 'undefined') {
     cache.requestQueueInterceptorId = instance.interceptors.request.use(
+      // @ts-ignore
       (request) => cache
         .refreshCall!.catch(() => {
         throw new axios.Cancel('Request call failed')
