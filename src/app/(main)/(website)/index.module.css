@@ -7,7 +7,7 @@
 }
 
 .productDescContainer {
-    height: 85vh;
+    height: 75vh;
     width: 100%;
     display: flex;
     letter-spacing: 1.5px;
@@ -15,6 +15,7 @@
     padding-top: 50px;
     background-color: rgba(25, 142, 122, 1);
 }
+
 .productText {
     width: 50%;
     height: 100%;
@@ -26,6 +27,7 @@
     font-family: "ClashDisplay-Regular";
     /* background-color: red; */
 }
+
 .productImage {
     background-image: url(/assets/img/app-homepage-screen2.png);
     background-position: 50% 10px;
@@ -36,6 +38,7 @@
     /* margin-right: 30px; */
     /* background-color: blue; */
 }
+
 .productImageMobile {
     display: none;
     background-image: url(/assets/img/app-homepage-screen2.png);
@@ -53,6 +56,7 @@
     font-size: 60px;
     color: white;
 }
+
 .productText h2 .tradingText {
     color: var(--header2-primary-color);
 }
@@ -143,15 +147,18 @@ button.btn1 {
     flex-direction: row;
     justify-content: space-evenly;
     /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
-    padding: 80px 50px;;
+    padding: 80px 50px;
+    ;
 }
 
-.artCard, .artCard .surface {
+.artCard,
+.artCard .surface {
     height: 250px;
     width: 400px;
     background-color: rgba(6, 153, 5, .5);
     border-radius: 20px;
 }
+
 .artCard .surface {
     /* position: relative; */
     /* top: -10px; */
@@ -168,8 +175,9 @@ button.btn1 {
     height: 55%;
     display: flex;
     flex-direction: row;
-} 
-.artCard .surface1 .text  {
+}
+
+.artCard .surface1 .text {
     /* background-color: green; */
     color: white;
     width: 65%;
@@ -181,6 +189,7 @@ button.btn1 {
     padding-left: 20px;
     padding-bottom: 10px;
 }
+
 .artCard .surface1 .text * {
     line-height: .8em;
     letter-spacing: .9px;
@@ -194,6 +203,7 @@ button.btn1 {
     justify-content: flex-start;
     align-items: flex-end;
 }
+
 .artCard .surface1 .logoContainer .logo {
     background-color: white;
     width: 80px;
@@ -203,6 +213,7 @@ button.btn1 {
     justify-content: center;
     align-items: center;
 }
+
 .artCard .surface1 .logoContainer .logoImg {
     height: 60%;
     /* background-color: red; */
@@ -236,9 +247,10 @@ button.btn1 {
     padding: 0px 5px;
     /* background-color: red; */
 }
+
 .iconInfoContainer h3 {
     font-size: 1.3em;
-    
+
 }
 
 .iconInfoContainer .img * {
@@ -297,26 +309,26 @@ button.btn1 {
     text-align: center;
     padding-bottom: 20px;
     position: relative;
-  }
-  
-  .questionsTextbox {
+}
+
+.questionsTextbox {
     margin-bottom: 50px;
-  }
-  
-  .questionsContainer h2 {
+}
+
+.questionsContainer h2 {
     font-size: 38px;
     text-align: center;
     font-family: "ClashDisplay-Light", 'sans-serif';
-  }
-  
-  .questionsContainer p {
+}
+
+.questionsContainer p {
     font-size: 16px;
     /* margin-top: -20px; */
     font-family: "Archivo", 'sans-serif';
-  }
-  
-  
-  .moreQuestions {
+}
+
+
+.moreQuestions {
     width: 90%;
     background-color: rgba(41, 45, 56, 1);
     padding: 26px 30px;
@@ -325,39 +337,39 @@ button.btn1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  
-  .moreQuestions h3 {
+}
+
+.moreQuestions h3 {
     margin-bottom: 30px;
     font-family: "ClashDisplay-Medium", 'sans-serif';
     color: white;
-  }
-  
-  .moreQuestions p {
+}
+
+.moreQuestions p {
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
     text-align: center;
     font-family: "Archivo", 'sans-serif';
     color: white;
-  }
+}
 
-  .downloadAppContainer {
+.downloadAppContainer {
     display: flex;
     padding: 20px 50px;
-  }
+}
 
-  .appHomepageImageContainer {
+.appHomepageImageContainer {
     width: 50%;
     display: flex;
     justify-content: end;
-  }
+}
 
-  .appHomepageImage {
+.appHomepageImage {
     height: 500px;
-  }
+}
 
-  .storeDownloadContainer {
+.storeDownloadContainer {
     width: 50%;
     /* background-color: blue; */
     font-family: "ClashDisplay-Regular";
@@ -365,63 +377,69 @@ button.btn1 {
     flex-direction: column;
     justify-content: center;
     padding-left: 20px;
-  }
+}
 
-  .storeDownloadContainer .secondText {
+.storeDownloadContainer .secondText {
     margin-top: 10px;
     padding-right: 10%;
-  }
+}
 
-  .storeBtnContainer {
+.storeBtnContainer {
     display: flex;
     margin-top: 20px;
-  }
+}
 
-   .playStoreBtn, 
-   .appStoreBtn  {
+.playStoreBtn,
+.appStoreBtn {
     padding: 15px 50px;
     background-color: rgba(53, 49, 49, 1);
     color: white;
     cursor: pointer;
     font-family: 'ClashDisplay-Regular';
     font-size: 18px;
-  }
+}
 
-  .storeBtnContainer .playStoreBtn {
+.storeBtnContainer .playStoreBtn {
     background-color: rgba(53, 49, 49, 1);
-  }
+}
 
-  .storeBtnContainer .appStoreBtn {
+.storeBtnContainer .appStoreBtn {
     margin-left: 20px;
     background-color: rgba(23, 128, 22, 1);
-  }
+}
 
-  @media screen and (max-width: 1600px) {
+@media screen and (max-width: 1600px) {
     .productDescContainer {
-        height: 70vh;
+        height: 75vh;
     }
-  }
+}
 
-  @media screen and (max-width: 1100px){
-    .playStoreBtn, .appStoreBtn {
+@media screen and (max-width: 1100px) {
+
+    .playStoreBtn,
+    .appStoreBtn {
         padding: 10px 25px;
     }
+
     .productText h2 {
         font-size: 35px;
     }
-  }
+}
 
 @media screen and (max-width: 1000px) {
-    .artCard, .artCard .surface {
+
+    .artCard,
+    .artCard .surface {
         height: 200px;
         width: 350px;
     }
+
     .artCard .surface2 {
         font-size: .9em;
     }
 
     .productDescContainer {
-        height: 45vh;
+        height: 30vh;
         padding: 20px;
 
     }
@@ -429,66 +447,79 @@ button.btn1 {
     .productText h2 {
         font-size: 30px;
     }
+
     .howToContainer {
         padding: 20px;
     }
-    
-    .btn1 {
+
+    button.btn1 {
         margin-top: 10px;
         padding: 5px 20px;
     }
+
     .howToContainer h2 {
         font-size: 34px;
     }
 }
 
 @media screen and (max-width: 850px) {
+
     /* .artCard .surface2 {
         font-size: .8em;
     } */
-    .artCard, .artCard .surface {
+    .artCard,
+    .artCard .surface {
         height: 160px;
         width: 250px;
     }
+
     .artCard .surface2 {
         padding: 10px 100px 10px 10px;
         letter-spacing: .8px;
         font-size: .65em;
 
     }
+
     .artCard .surface1 .text * {
         font-size: 1.4em;
         letter-spacing: .5px;
     }
+
     .artCard .surface1 .text {
         padding-left: 10px;
         padding-bottom: 0px;
     }
+
     .productDescContainer {
         padding: 0px;
-        padding-top: 40px;;
+        padding-top: 40px;
         padding-left: 20px;
         letter-spacing: 1.2px;
+        height: 30vh;
     }
+
     .section3 {
         justify-content: space-between;
     }
+
     .section3 .promoImageContainer {
         width: 60%;
         /* padding: 0px; */
     }
+
     .section3 .downloadBtnContainer {
         width: 40%;
         /* justify-content: space-between; */
         /* padding: 0px; */
     }
 
-    .btn1 {
+    button.btn1 {
         margin-top: 20px;
         padding: 10px 30px;
     }
 
-    .playStoreBtn, .appStoreBtn {
+    .playStoreBtn,
+    .appStoreBtn {
         padding: 10px 15px;
     }
 
@@ -498,7 +529,9 @@ button.btn1 {
 }
 
 @media screen and (max-width: 780px) {
-    .playStoreBtn, .appStoreBtn {
+
+    .playStoreBtn,
+    .appStoreBtn {
         padding: 10px 10px;
         font-size: 14px;
     }
@@ -510,9 +543,11 @@ button.btn1 {
     .howToContainer h2 {
         font-size: 28px;
     }
+
     .questionsTextbox h2 {
         font-size: 28px;
     }
+
     .videoElement {
         height: 300px;
         width: 95%;
@@ -532,18 +567,22 @@ button.btn1 {
         margin-top: 30px;
     }
 
-    .artCard, .artCard .surface {
+    .artCard,
+    .artCard .surface {
         height: 200px;
         width: 60vw;
     }
+
     .productDescContainer {
-        /* padding: 0px 10px; */
+        padding: 0px 10px;
+        padding-top: 30px;
         letter-spacing: 1px;
-        height: 65vh;
-        /* background-color: red; */
+        height: 30vh;
     }
-    .productDescContainer .secondText, .productDescContainer .secondText ~ * {
-        font-size: .8emx;
+
+    .productDescContainer .secondText,
+    .productDescContainer .secondText~* {
+        font-size: .8em;
     }
 
     .productText h2 {
@@ -553,17 +592,19 @@ button.btn1 {
     .section2 {
         padding: 20px 0px;
     }
+
     .section2 .iconInfoContainer {
         margin-right: 10px;
     }
+
     .iconInfoContainer h3 {
         font-size: 1em;
     }
-    
+
     .iconInfoContainer .img * {
         height: 50px;
     }
-    
+
     .iconInfoContainer .img {
         margin-bottom: 5%;
     }
@@ -577,13 +618,15 @@ button.btn1 {
         padding: 0;
         width: 60%;
     }
+
     .appHomepageImageContainer {
         display: none;
     }
+
     .howToContainer h2 {
         font-size: 24px;
     }
-    
+
 }
 
 @media screen and (max-width: 600px) {
@@ -591,6 +634,7 @@ button.btn1 {
         display: flex;
         flex-direction: column;
     }
+
     .productText h2 {
         font-size: 28px;
     }
@@ -602,25 +646,25 @@ button.btn1 {
         display: none;
 
     }
+
     .productImageMobile {
         display: flex;
         /* width: max-content; */
     }
+
     .productText {
         width: 100%;
-        /* background-image: url(/assets/brand/product-image.png); */
-        /* background-size: contain;
-        background-repeat: no-repeat; */
-        /* width: 60%; */
-        /* height: 100%; */
+    }
+    .productText h2 {
+        font-size: 24px;
     }
 
     .productDescContainer {
-        height: 50vh;
-        /* background-color: red; */
+        padding: 20px 10px;
     }
 
-    .artCard, .artCard .surface {
+    .artCard,
+    .artCard .surface {
         width: 100%;
     }
 
@@ -637,11 +681,12 @@ button.btn1 {
     .moreQuestions {
         width: 95%;
     }
+
     .moreQuestions h3 {
         margin-bottom: 30px;
         font-size: 18px;
     }
-      
+
     .moreQuestions p {
         font-size: 14px;
         line-height: 18px;
