@@ -129,7 +129,7 @@ export default function Page(props: Props) {
                             value={category ? category.id : undefined}
                             onChange={(e) => {
                                 // @ts-ignore
-                                const cat = categories.find(c => c.id == e.target.value);
+                                const cat = cats.find(c => c.id == e.target.value);
                                 setCategory(cat);
                                 fetchSubCategories(cat?.id ?? 0);
 
