@@ -161,14 +161,14 @@ export default function LandingPage(props: Props) {
                     <div className={styles.storeBtnContainer}>
                         <div
                             onClick={() => {
-                                window.open("https://cardicapp.com/app/cardic.apk", "_blank")?.focus();
+                                // window.open("https://cardicapp.com/app/cardic.apk", "_blank")?.focus();
                             }}
                             className={styles.playStoreBtn}>
                             <FontAwesomeIcon fixedWidth icon={faAndroid} style={{ marginRight: 5 }} /> Android
                         </div>
                         <div
                             onClick={() => {
-                                window.open('https://apps.apple.com/us/app/cardic/id6737470997', "_blank")?.focus();
+                                // window.open('https://apps.apple.com/us/app/cardic/id6737470997', "_blank")?.focus();
                             }}
                             className={styles.appStoreBtn}>
                             <FontAwesomeIcon fixedWidth icon={faApple} /> App Store
