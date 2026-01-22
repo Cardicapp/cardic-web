@@ -11,15 +11,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuthState, setAuthToken, setUserInfo } from "@/store/authSlice";
+import Colors from "@/theme/Colors";
+import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
+import axiosExtended from "@/lib/network/axios-extended";
+import routes from "@/lib/network/routes";
 
 export function UserInfo() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { user } = useSelector(selectAuthState);
+    const router = useRouter()
+  const dispatch = useDispatch()
   const USER = {
-    name: "John Smith",
-    email: "johnson@nextadmin.com",
+    name: `${user?.firstName} ${user?.lastName}`,
+    email: user?.email,
     img: "/images/user/user-03.png",
   };
+
+   const logout = async () => {
+    await serverLogout();
+    dispatch(setUserInfo(null))
+    dispatch(setAuthToken(null))
+    deleteCookie('auth')
+    router.replace('/admin/login')
+  }
+
+  const serverLogout = async () => {
+    try {
+      const res = await axiosExtended.post(`${routes.auth}/logout`)
+      if (res.status === 200) return true;
+    } catch(e) {
+      console.error(e);
+    }
+  }
 
   return (
     <Dropdown isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -27,13 +53,19 @@ export function UserInfo() {
         <span className="sr-only">My Account</span>
 
         <figure className="flex items-center gap-3">
-          <Image
-            src={USER.img}
-            className="size-12"
-            alt={`Avatar of ${USER.name}`}
+          <div
+            // src={USER.img}
+            // className="size-12"
+            // alt={`Avatar of ${USER.name}`}
             role="presentation"
-            width={200}
-            height={200}
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 100,
+              backgroundColor: Colors.Green
+            }}
+          // width={200}
+          // height={200}
           />
           <figcaption className="flex items-center gap-1 font-medium text-dark dark:text-dark-6 max-[1024px]:sr-only">
             <span>{USER.name}</span>
@@ -57,15 +89,29 @@ export function UserInfo() {
         <h2 className="sr-only">User information</h2>
 
         <figure className="flex items-center gap-2.5 px-5 py-3.5">
-          <Image
+          {/* <Image
             src={USER.img}
             className="size-12"
             alt={`Avatar for ${USER.name}`}
             role="presentation"
             width={200}
             height={200}
-          />
+          /> */}
 
+          <div
+            // src={USER.img}
+            // className="size-12"
+            // alt={`Avatar of ${USER.name}`}
+            role="presentation"
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 100,
+              backgroundColor: Colors.Green
+            }}
+          // width={200}
+          // height={200}
+          />
           <figcaption className="space-y-1 text-base font-medium">
             <div className="mb-2 leading-none text-dark dark:text-white">
               {USER.name}
@@ -106,7 +152,9 @@ export function UserInfo() {
         <div className="p-2 text-base text-[#4B5563] dark:text-dark-6">
           <button
             className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              logout().then(() => setIsOpen(false))
+            }}
           >
             <LogOutIcon />
 

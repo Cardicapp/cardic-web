@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from 'redux-persist'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import { AuthState, authSlice } from './authSlice'
+import { AdminState, adminSlice } from './adminSlice'
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   [authSlice.name]: persistReducer<AuthState, any>(persistConfig, authSlice.reducer),
+  [adminSlice.name]: persistReducer<AdminState, any>(persistConfig, adminSlice.reducer),
 })
 
 // export const store = configureStore({
@@ -32,6 +34,7 @@ export const store = configureStore({
       },
     }),
   devTools: true,
+  
 });
 const makeStore = () => store
 

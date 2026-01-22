@@ -6,13 +6,13 @@ type PropsType = {
   label: string;
   data: {
     value: number | string;
-    growthRate: number;
+    // growthRate: number;
   };
   Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element;
 };
 
 export function OverviewCard({ label, data, Icon }: PropsType) {
-  const isDecreasing = data.growthRate < 0;
+  // const isDecreasing = data.growthRate < 0;
 
   return (
     <div className="rounded-[10px] bg-white p-6 shadow-1 dark:bg-gray-dark">
@@ -27,7 +27,7 @@ export function OverviewCard({ label, data, Icon }: PropsType) {
           <dd className="text-sm font-medium text-dark-6">{label}</dd>
         </dl>
 
-        <dl
+        {/* <dl
           className={cn(
             "text-sm font-medium",
             isDecreasing ? "text-red" : "text-green",
@@ -46,7 +46,7 @@ export function OverviewCard({ label, data, Icon }: PropsType) {
             {label} {isDecreasing ? "Decreased" : "Increased"} by{" "}
             {data.growthRate}%
           </dd>
-        </dl>
+        </dl> */}
       </div>
     </div>
   );

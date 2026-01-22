@@ -52,7 +52,7 @@ axiosExtended.interceptors.response.use(
     // } else 
     if (error.response && error.response.status === 401) {
       deleteCookie('auth')
-      location.assign(`/admin/login`)
+      // location.assign(`/admin/login`)
     } else {
       return Promise.reject(error);
     }

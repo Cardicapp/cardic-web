@@ -6,8 +6,8 @@ import dynamic from "next/dynamic";
 
 type PropsType = {
   data: {
-    received: { x: unknown; y: number }[];
-    due: { x: unknown; y: number }[];
+    cards: { x: unknown; y: number }[];
+    crypto: { x: unknown; y: number }[];
   };
 };
 
@@ -80,23 +80,23 @@ export function PaymentsOverviewChart({ data }: PropsType) {
         show: false,
       },
       axisTicks: {
-        show: false,
+        show: true,
       },
     },
   };
-
+  console.log("chart data", data);
   return (
     <div className="-ml-4 -mr-5 h-[310px]">
       <Chart
         options={options}
         series={[
           {
-            name: "Received",
-            data: data.received,
+            name: "Cards",
+            data: data.cards,
           },
           {
-            name: "Due",
-            data: data.due,
+            name: "Crypto",
+            data: data.crypto,
           },
         ]}
         type="area"

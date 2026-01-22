@@ -11,6 +11,7 @@ type PropsType<TItem> = {
   items?: TItem[];
   sectionKey: string;
   minimal?: boolean;
+  onChange?: (value: TItem) => void;
 };
 
 const PARAM_KEY = "selected_time_frame";
@@ -20,6 +21,7 @@ export function PeriodPicker<TItem extends string>({
   sectionKey,
   items,
   minimal,
+  onChange
 }: PropsType<TItem>) {
   const router = useRouter();
   const pathname = usePathname();
@@ -33,7 +35,7 @@ export function PeriodPicker<TItem extends string>({
         className={cn(
           "flex h-8 w-full items-center justify-between gap-x-1 rounded-md border border-[#E8E8E8] bg-white px-3 py-2 text-sm font-medium text-dark-5 outline-none ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-neutral-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:ring-offset-neutral-950 dark:focus:ring-neutral-300 dark:data-[placeholder]:text-neutral-400 [&>span]:line-clamp-1 [&[data-state='open']>svg]:rotate-0",
           minimal &&
-            "border-none bg-transparent p-0 text-dark dark:bg-transparent dark:text-white",
+          "border-none bg-transparent p-0 text-dark dark:bg-transparent dark:text-white",
         )}
       >
         <span className="capitalize">{defaultValue || "Time Period"}</span>
@@ -51,17 +53,23 @@ export function PeriodPicker<TItem extends string>({
               <button
                 className="flex w-full select-none items-center truncate rounded-md px-3 py-2 text-sm capitalize outline-none hover:bg-[#F9FAFB] hover:text-dark-3 dark:hover:bg-[#FFFFFF1A] dark:hover:text-white"
                 onClick={() => {
-                  const queryString = createQueryString({
-                    sectionKey,
-                    value: item,
-                    selectedTimeFrame: searchParams.get(PARAM_KEY),
-                  });
+                  if (!onChange) {
+                    const queryString = createQueryString({
+                      sectionKey,
+                      value: item,
+                      selectedTimeFrame: searchParams.get(PARAM_KEY),
+                    });
 
-                  router.push(pathname + queryString, {
-                    scroll: false,
-                  });
+                    router.push(pathname + queryString, {
+                      scroll: false,
+                    });
 
+                  } else {
+                    onChange?.(item as TItem);
+                  }
                   setIsOpen(false);
+
+
                 }}
               >
                 {item}

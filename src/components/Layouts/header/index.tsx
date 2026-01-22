@@ -8,12 +8,24 @@ import { MenuIcon } from "./icons";
 import { Notification } from "./notification";
 import { ThemeToggleSwitch } from "./theme-toggle";
 import { UserInfo } from "./user-info";
+import { usePathname } from 'next/navigation';
+import { useSelector } from "react-redux";
+import { selectAdminState } from "@/store/adminSlice";
 
 export function Header() {
   const { toggleSidebar, isMobile } = useSidebarContext();
+  const pathname = usePathname();
+  const { isModalOpen } = useSelector(selectAdminState);
+  let title = "Dashboard";
+  let description = "Welcome back! Here's what's happening today.";
+
+  if (pathname === "/admin/card-trades") {
+    title = "Giftcard Trades";
+    description = "Manage all giftcard trades.";
+  }
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-stroke bg-white px-4 py-5 shadow-1 dark:border-stroke-dark dark:bg-gray-dark md:px-5 2xl:px-10">
+    <header className={`sticky top-0 ${isModalOpen ? 'z-0' : 'z-30'} flex items-center justify-between border-b border-stroke bg-white px-4 py-5 shadow-1 dark:border-stroke-dark dark:bg-gray-dark md:px-5 2xl:px-10`}>
       <button
         onClick={toggleSidebar}
         className="rounded-lg border px-1.5 py-1 dark:border-stroke-dark dark:bg-[#020D1A] hover:dark:bg-[#FFFFFF1A] lg:hidden"
@@ -36,13 +48,13 @@ export function Header() {
 
       <div className="max-xl:hidden">
         <h1 className="mb-0.5 text-heading-5 font-bold text-dark dark:text-white">
-          Dashboard
+          {title}
         </h1>
-        <p className="font-medium">Next.js Admin Dashboard Solution</p>
+        <p className="font-medium">{description}</p>
       </div>
 
       <div className="flex flex-1 items-center justify-end gap-2 min-[375px]:gap-4">
-        <div className="relative w-full max-w-[300px]">
+        {/* <div className="relative w-full max-w-[300px]">
           <input
             type="search"
             placeholder="Search"
@@ -50,9 +62,9 @@ export function Header() {
           />
 
           <SearchIcon className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 max-[1015px]:size-5" />
-        </div>
+        </div> */}
 
-        <ThemeToggleSwitch />
+        {/* <ThemeToggleSwitch /> */}
 
         <Notification />
 

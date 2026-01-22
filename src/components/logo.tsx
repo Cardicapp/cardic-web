@@ -5,22 +5,25 @@ import Image from "next/image";
 export function Logo() {
   return (
     <div className="relative h-8 max-w-[10.847rem]">
-      <Image
+      {/* <Image
         src={logo}
         fill
         className="dark:hidden"
         alt="NextAdmin logo"
         role="presentation"
         quality={100}
-      />
+      /> */}
 
       <Image
-        src={darkLogo}
-        fill
-        className="hidden dark:block"
-        alt="NextAdmin logo"
+        src={'/assets/brand/cardicapp-logo.png'}
+        className="dark:block"
+        // fill
+        // className="hidden dark:block"
+        alt="CardicApp logo"
         role="presentation"
-        quality={100}
+        // quality={100}
+        width={300}
+        height={31}
       />
     </div>
   );

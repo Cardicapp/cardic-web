@@ -2,46 +2,47 @@ import { compactFormat } from "@/lib/format-number";
 import { getOverviewData } from "../../fetch";
 import { OverviewCard } from "./card";
 import * as icons from "./icons";
+import { DashboardType, OverviewData } from "../../(admin)/admin/dashboard/page";
 
-export async function OverviewCardsGroup() {
-  const { views, profit, products, users } = await getOverviewData();
+interface OverviewCardsGroupProps {
+  data: OverviewData;
+};
+export async function OverviewCardsGroup(props: OverviewCardsGroupProps) {
+  // const { views, profit, products, users } = await getOverviewData();
 
+  const { adminsCount, newTradesCount, totalCryptoTransactions, completedTradesCount} = props.data;
   return (
     <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 2xl:gap-7.5">
       <OverviewCard
-        label="Total Views"
+        label="Total Admins"
         data={{
-          ...views,
-          value: compactFormat(views.value),
+          value: compactFormat(adminsCount),
         }}
-        Icon={icons.Views}
+        Icon={icons.Users}
       />
 
       <OverviewCard
-        label="Total Profit"
+        label="Total Card Trades"
         data={{
-          ...profit,
-          value: "$" + compactFormat(profit.value),
-        }}
-        Icon={icons.Profit}
-      />
-
-      <OverviewCard
-        label="Total Products"
-        data={{
-          ...products,
-          value: compactFormat(products.value),
+          value: compactFormat(completedTradesCount || 0),
         }}
         Icon={icons.Product}
       />
 
       <OverviewCard
-        label="Total Users"
+        label="Total Crypto Transactions"
         data={{
-          ...users,
-          value: compactFormat(users.value),
+          value: compactFormat(totalCryptoTransactions),
         }}
-        Icon={icons.Users}
+        Icon={icons.Product}
+      />
+
+      <OverviewCard
+        label="New Card Trades"
+        data={{
+          value: compactFormat(newTradesCount),
+        }}
+        Icon={icons.Product}
       />
     </div>
   );
