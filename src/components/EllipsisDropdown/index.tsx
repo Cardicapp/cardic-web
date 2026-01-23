@@ -45,7 +45,10 @@ const EllipsisDropdown = ({ items, title }: EllipsisDropdownProps) => {
 
                                     <div
                                         key={item.label}
-                                        onClick={item.onClick}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            item.onClick && item.onClick();
+                                        }}
                                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 truncate" // Add truncate here as well
                                         role="menuitem"
                                     >

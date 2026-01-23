@@ -27,24 +27,26 @@ interface AllGiftCardsProps {
   onDelete?: (category: Category) => void;
   onDisable?: (category: Category) => void;
   onAdd?: () => void;
+  onChangeImage?: (category: Category) => void;
+  onClick?: (category: Category) => void;
+  onLoadStart?: () => void;
+  onLoadEnd?: () => void;
 }
 
-export function AllGiftCards({ className, onDelete, onEdit, onDisable, onAdd }: AllGiftCardsProps) {
+export function AllGiftCardsList({ className, onDelete, onEdit, onDisable, onAdd, onChangeImage, onClick, onLoadStart, onLoadEnd }: AllGiftCardsProps) {
 
-  const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState<Category[]>([])
   const getGiftCards = async () => {
-    setLoading(true);
+    onLoadStart && onLoadStart();
     const categoryListURL = `${process.env.NEXT_PUBLIC_API_URL}${routes.categories}` || ''
     try {
       const res = await axiosExtended.get(categoryListURL);
-      setLoading(false);
+      onLoadEnd && onLoadEnd();
       if (res.status === 200) {
-        console.log(res, "Response cards")
         setCards(res.data.data)
       }
     } catch (e) {
-      setLoading(false);
+      onLoadEnd && onLoadEnd();
       console.error(e);
     }
   };
@@ -60,16 +62,16 @@ export function AllGiftCards({ className, onDelete, onEdit, onDisable, onAdd }: 
         className,
       )}
     >
-      <div className="flex flex-row justify-between">
-        <h2 className="mb-4 text-body-2xlg font-bold text-dark dark:text-white">
+      <div className="mb-4 flex flex-row justify-between items-center">
+        <h2 className=" text-body-2xlg font-bold text-dark dark:text-white">
           All Giftcards
         </h2>
         {
           onAdd && (
             <Button
               onClick={() => onAdd && onAdd()}
-              className="self-end"
-              label="Add New Giftcard" variant="green" shape="rounded"
+              className="self-end text-sm md:text-base  px-2 py-1"
+              label="Add New" variant="green" shape="rounded"
               icon={
                 <PlusIcon color="white" speed="animate-spin" />
               }
@@ -84,10 +86,13 @@ export function AllGiftCards({ className, onDelete, onEdit, onDisable, onAdd }: 
         <TableBody>
           {cards.map((card, i) => (
             <TableRow
-              className="text-center text-base font-medium text-dark dark:text-white"
+              className="text-center text-base font-medium text-dark dark:text-white cursor-pointer"
               key={card.name + i}
             >
-              <TableCell className="flex min-w-fit items-center gap-3">
+              <TableCell className="flex min-w-fit items-center gap-3"
+              onClick={() => {
+                onClick && onClick(card)
+              }}>
                 <Image
                   src={{ src: card.photo.path, width: 40, height: 40 }}
                   className="size-8 rounded-full object-cover"
@@ -125,6 +130,11 @@ export function AllGiftCards({ className, onDelete, onEdit, onDisable, onAdd }: 
                     {
                       label: "Disable", onClick: () => {
                         onDisable && onDisable(card)
+                      }
+                    },
+                    {
+                      label: "Update Image", onClick: () => {
+                        onChangeImage && onChangeImage(card)
                       }
                     }
                   ]}

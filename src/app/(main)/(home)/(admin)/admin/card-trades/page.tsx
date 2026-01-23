@@ -1,15 +1,7 @@
 'use client'
-import { TopChannels } from "@/components/Tables/top-channels";
-import { TopChannelsSkeleton } from "@/components/Tables/top-channels/skeleton";
-import { createTimeFrameExtractor } from "@/utils/timeframe-extractor";
 import { Suspense, SyntheticEvent, useEffect, useState } from "react";
-import { ChatsCard } from "../../../_components/chats-card";
-import { OverviewCardsGroup } from "../../../_components/overview-cards";
-import { OverviewCardsSkeleton } from "../../../_components/overview-cards/skeleton";
-import { RegionLabels } from "../../../_components/region-labels";
 import axiosExtended from "@/lib/network/axios-extended";
 import routes from "@/lib/network/routes";
-import { AdminRoleEnum } from "@/types/role";
 import { checkHasPermission, currencyFormat } from "@/lib/utils";
 import { Permission, PermissionFeatureEnum, PermissionModuleEnum, PermissionSubModuleEnum } from "@/types/module";
 import axios from "axios";
@@ -22,7 +14,7 @@ import { compactFormat } from "@/lib/format-number";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useSelector } from "react-redux";
 import { selectAdminState } from "@/store/adminSlice";
-import { AllGiftCards } from "@/components/Tables/all-cards";
+import { AllGiftCardsList } from "@/components/Tables/all-cards";
 import CustomModal from "@/components/Modal/CustomModal";
 import InputGroup from "@/components/FormElements/InputGroup";
 import { Button } from "@/components/ui-elements/button";
@@ -36,6 +28,10 @@ import { useRouter } from "next/navigation";
 import { ConfirmationModal } from "@/components/ConfirmationModal/ConfirmationModal";
 import LoadingModal from "@/components/Modal/LoadingModal";
 import { InfoModal } from "@/components/InfoModal/InfoModal";
+import { AllCardsSkeleton } from "@/components/Tables/all-cards/skeleton";
+import { SubCategoryList } from "@/components/Tables/sub-categories";
+import { SubCategory } from "@/models/sub-category";
+import { ArrowLeft } from "lucide-react";
 
 type PropsType = {
   searchParams: Promise<{
@@ -86,14 +82,37 @@ export default function Giftcards({ searchParams }: PropsType) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showDisableModal, setShowDisableModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  // Sub Start
+  const [isAddSubModalOpen, setIsAddSubModalOpen] = useState(false)
+  const [isEditSubModalOpen, setIsEditSubModalOpen] = useState(false)
+  const [showDisableSubModal, setShowDisableSubModal] = useState(false)
+  const [showEnableSubModal, setShowEnableSubModal] = useState(false)
+  // Sub End
   const [permissions, setPermissions] = useState<Permission[]>([]);
   const { user } = useSelector(selectAuthState);
-  const [loading, setLoading] = useState(false);
-
+  const [currentTab, setCurrentTab] = useState('cards');
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [addForm, setAddForm] = useState({
     name: '',
     image: undefined,
     description: '',
+  })
+
+  const [addSubForm, setAddSubForm] = useState({
+    name: '',
+    nairaRate: '',
+    minAmount: '',
+    maxAmount: '',
+    // amount: '',
+  })
+
+  const [editSubForm, setEditSubForm] = useState({
+    id: 0,
+    name: '',
+    nairaRate: '',
+    // amount: '',
+    minAmount: '',
+    maxAmount: '',
   })
 
   const [updateImageForm, setUpdateImageForm] = useState<{
@@ -106,7 +125,7 @@ export default function Giftcards({ searchParams }: PropsType) {
   const [editForm, setEditForm] = useState({
     id: 0,
     name: '',
-    image: undefined,
+    image: '',
     description: '',
   })
   const [submitting, setSubmitting] = useState(false)
@@ -124,6 +143,45 @@ export default function Giftcards({ searchParams }: PropsType) {
     isValidated: false,
   })
   const [editImageValidation, setEditImageValidation] = useState({
+    isValid: false,
+    isValidated: false,
+  })
+
+  const [rateValidation, setRateValidation] = useState({
+    isValid: false,
+    isValidated: false,
+  })
+
+  // const [amountValidation, setAmountValidation] = useState({
+  //   isValid: false,
+  //   isValidated: false,
+  // })
+
+  const [minAmountValidation, setMinAmountValidation] = useState({
+    isValid: false,
+    isValidated: false,
+  })
+
+  const [maxAmountValidation, setMaxAmountValidation] = useState({
+    isValid: false,
+    isValidated: false,
+  })
+
+  const [editRateValidation, setEditRateValidation] = useState({
+    isValid: false,
+    isValidated: false,
+  })
+  // const [editAmountValidation, setEditAmountValidation] = useState({
+  //   isValid: false,
+  //   isValidated: false,
+  // })
+
+  const [editMinAmountValidation, setEditMinAmountValidation] = useState({
+    isValid: false,
+    isValidated: false,
+  })
+
+  const [editMaxAmountValidation, setEditMaxAmountValidation] = useState({
     isValid: false,
     isValidated: false,
   })
@@ -162,7 +220,7 @@ export default function Giftcards({ searchParams }: PropsType) {
     return data
   }
 
-  const validate = () => {
+  const validateCategory = () => {
     let isValid = true
     if (!addForm.name || addForm.name.length < 3) {
       setNameValidation({
@@ -184,7 +242,7 @@ export default function Giftcards({ searchParams }: PropsType) {
   const addCategory = async (e: SyntheticEvent) => {
     e.stopPropagation()
     e.preventDefault()
-    if (validate()) {
+    if (validateCategory()) {
       setSubmitting(true)
       const payload = createFormData()
       const res = await axiosExtended.post(routes.categories, payload, {
@@ -227,7 +285,7 @@ export default function Giftcards({ searchParams }: PropsType) {
     return isValid
   }
 
-  const validateEdit = () => {
+  const validateEditCategory = () => {
     let isValid = true
     if (!editForm.name || editForm.name.length < 3) {
       setNameValidation({
@@ -299,10 +357,13 @@ export default function Giftcards({ searchParams }: PropsType) {
     }
   }
   const [currentCard, setCurrentCard] = useState<Category>();
+  const [currentSub, setCurrentSub] = useState<SubCategory>();
+
   const {
     completedTradesCount,
     usersCount,
     rejectedTradesCount,
+    newTradesCount
   } = overview;
 
   const fetchPermisions = async () => {
@@ -310,6 +371,192 @@ export default function Giftcards({ searchParams }: PropsType) {
     if (res.status == 200)
       setPermissions(res.data)
   }
+
+  // Sub Categories Start
+
+
+  const validateSubCategory = () => {
+    let isValid = true
+    if (!addSubForm.name || addSubForm.name.length < 3) {
+      setNameValidation({
+        isValid: false,
+        isValidated: true,
+      })
+      isValid = false
+    }
+    // if (!addSubForm.amount || parseInt(addSubForm.amount) < 1) {
+    //   setAmountValidation({
+    //     isValid: false,
+    //     isValidated: true
+    //   })
+    // }
+    if (!addSubForm.minAmount || parseInt(addSubForm.minAmount) < 1) {
+      setMinAmountValidation({
+        isValid: false,
+        isValidated: true
+      })
+    }
+
+    if (!addSubForm.maxAmount || parseInt(addSubForm.maxAmount) < 1) {
+      setMaxAmountValidation({
+        isValid: false,
+        isValidated: true
+      })
+    }
+
+    if (!addSubForm.nairaRate || parseInt(addSubForm.nairaRate) < 1) {
+      setRateValidation({
+        isValid: false,
+        isValidated: true,
+      })
+      isValid = false
+    }
+    return isValid
+  }
+
+  const validateEdit = () => {
+    let isValid = true
+    if (!editSubForm.name || editSubForm.name.length < 3) {
+      setEditNameValidation({
+        isValid: false,
+        isValidated: true,
+      })
+      isValid = false
+    }
+    // if (!editSubForm.amount || parseInt(editSubForm.amount) < 1) {
+    //   setEditAmountValidation({
+    //     isValid: false,
+    //     isValidated: true
+    //   })
+    // }
+    if (!editSubForm.minAmount || parseInt(editSubForm.minAmount) < 1) {
+      setEditMinAmountValidation({
+        isValid: false,
+        isValidated: true
+      })
+    }
+    if (!editSubForm.maxAmount || parseInt(editSubForm.maxAmount) < 1) {
+      setEditMaxAmountValidation({
+        isValid: false,
+        isValidated: true
+      })
+    }
+    if (!editSubForm.nairaRate || parseInt(editSubForm.nairaRate) < 1) {
+      setEditRateValidation({
+        isValid: false,
+        isValidated: true,
+      })
+      isValid = false
+    }
+    return isValid
+  }
+
+  const addSubCategory = async (e: SyntheticEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    if (validateSubCategory()) {
+      setSubmitting(true)
+      const payload = {
+        name: addSubForm.name,
+        nairaRate: parseInt(addSubForm.nairaRate),
+        category: {
+          id: currentCard?.id,
+        },
+        minAmount: parseInt(addSubForm.minAmount),
+        maxAmount: parseInt(addSubForm.maxAmount)
+      }
+      try {
+        const res = await axiosExtended.post(routes.subCategories, payload)
+        console.log('Res', res)
+        if (res.status === 201) {
+          setIsAddModalOpen(false)
+          setAddSubForm({
+            name: '',
+            nairaRate: '',
+            minAmount: '',
+            maxAmount: '',
+          })
+          location.reload()
+        }
+      } catch (e) {
+        console.log(e)
+      }
+
+      setSubmitting(false)
+    }
+  }
+
+  const enableSubcategory = async () => {
+    try {
+      setSubmitting(true)
+      const payload = {
+        ...currentSub,
+        status: {
+          id: StatusEnum.active,
+        },
+      }
+      const res = await axiosExtended.patch(`${routes.subCategories}/${currentSub?.id}`, payload)
+      if (res.status === 200) {
+        setShowEnableSubModal(false)
+        location.reload()
+      }
+      setSubmitting(false)
+    } catch (e) {
+      setShowEnableSubModal(false)
+      console.log(JSON.stringify(e, null, 5))
+    }
+  }
+
+  const disableSubcategory = async () => {
+    try {
+      setSubmitting(true)
+      const payload = {
+        ...currentSub,
+        status: {
+          id: StatusEnum.inactive,
+        },
+      }
+      const res = await axiosExtended.patch(`${routes.subCategories}/${currentSub?.id}`, payload)
+      if (res.status === 200) {
+        setShowDisableModal(false)
+        location.reload()
+      }
+      setSubmitting(false)
+    } catch (e) {
+      setShowDisableModal(false)
+      console.log(JSON.stringify(e, null, 5))
+    }
+  }
+
+  const editSubCategory = async (e: SyntheticEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (validateEdit()) {
+      setSubmitting(true)
+      const payload = {
+        name: editSubForm.name,
+        nairaRate: parseInt(editSubForm.nairaRate),
+        category: {
+          id: currentCard?.id,
+        },
+        minAmount: parseInt(editSubForm.minAmount),
+        maxAmount: parseInt(editSubForm.maxAmount),
+      }
+
+      try {
+        const res = await axiosExtended.patch(`${routes.subCategories}/${editSubForm.id}`, payload)
+        if (res.status === 200) {
+          setIsEditModalOpen(false)
+          location.reload()
+        }
+      } catch (e) {
+        console.log(e)
+      }
+      setSubmitting(false)
+    }
+  }
+
 
   useEffect(() => {
     fetchPermisions();
@@ -321,18 +568,54 @@ export default function Giftcards({ searchParams }: PropsType) {
   // @ts-ignore
   const canDelete = permissions.length ? checkHasPermission({ id: user?.adminRole?.id }, { id: PermissionFeatureEnum.deleteCategories }, permissions) : false;
 
+  const updateCardEditForm = (c: Category) => {
+    setEditForm({
+      id: c.id,
+      name: c.name,
+      description: c.description,
+      image: c.photo.fileName
+    })
+  }
+    const updateSubEditForm = (s: SubCategory) => {
+    setEditSubForm({
+      name: s.name,
+      id: s.id,
+      maxAmount: s.maxAmount.toString(),
+      minAmount: s.minAmount.toString(),
+      nairaRate: s.nairaRate.toString(),
+    })
+  }
   const router = useRouter();
   if (!canRead && permissions.length) return router.replace("/error/unauthorized");
   return (
     <>
       <div className="">
-        <Breadcrumb pageName="Cards" />
+        {
+          currentTab == 'subcategories' && (
+            <Button
+              onClick={() => {
+                setCurrentTab('cards')
+              }}
+              className="self-end mr-2 mb-3 mt-[-5]"
+              variant="outlineDark" shape="rounded"
+              icon={
+                <ArrowLeft color="black" />
+              }
+            />
+          )
+        }
+
+        {
+          currentTab == 'subcategories' ? <Breadcrumb pageName="Sub-Categories" /> : <Breadcrumb pageName="Cards" />
+
+        }
+
         <GeneralOverview overviewData={overview} overviewTitle="Card Trades">
           <div className="flex flex-col md:flex-row gap-4">
             <OverviewOne
               title="Open Trades"
               containerClassName="flex-1"
-              value={`${usersCount}`}
+              value={`${newTradesCount}`}
               icon={<StarIcon className={styles.icon} />}
             />
             <OverviewOne
@@ -354,24 +637,62 @@ export default function Giftcards({ searchParams }: PropsType) {
       <div className="mt- md:mt-6 2xl:mt-9" />
 
       <div className="col-span-12 grid xl:col-span-8">
-        <Suspense fallback={<TopChannelsSkeleton />}>
-          <AllGiftCards
-            onDelete={(card) => {
-              setCurrentCard(card)
-              setShowDeleteModal(true)
-            }}
-            onEdit={(card) => {
-              setCurrentCard(card)
-              setIsEditModalOpen(true)
-            }}
+        <Suspense fallback={<AllCardsSkeleton />}>
+          {
+            currentTab == 'cards' ?
+              <AllGiftCardsList
+                onDelete={(card) => {
+                  setCurrentCard(card)
+                  setShowDeleteModal(true)
+                }}
+                onEdit={(card) => {
+                  setCurrentCard(card)
+                  updateCardEditForm(card)
+                  setIsEditModalOpen(true)
+                }}
 
-            onDisable={(card) => {
-              setCurrentCard(card)
-              setShowDisableModal(true)
-            }}
-
-            onAdd={() => setIsAddModalOpen(true)}
-          />
+                onDisable={(card) => {
+                  setCurrentCard(card)
+                  setShowDisableModal(true)
+                }}
+                onAdd={() => setIsAddModalOpen(true)}
+                onChangeImage={(card) => {
+                  setCurrentCard(card);
+                  setIsUpdateImageModalOpen(true);
+                }}
+                onClick={(card) => {
+                  setCurrentCard(card);
+                  setCurrentTab('subcategories');
+                }}
+                onLoadStart={() => setShowLoadingModal(true)}
+                onLoadEnd={() => setShowLoadingModal(false)}
+              /> : undefined
+          }
+          {
+            currentTab == 'subcategories' ?
+              <SubCategoryList
+                cardId={currentCard?.id || 0}
+                onEnable={(sub) => {
+                  setCurrentSub(sub)
+                  setShowEnableSubModal(true)
+                }}
+                onEdit={(sub) => {
+                  setCurrentSub(sub)
+                  updateSubEditForm(sub)
+                  setIsEditSubModalOpen(true)
+                }}
+                onBack={() => {
+                  setCurrentTab("cards")
+                }}
+                onDisable={(sub) => {
+                  setCurrentSub(sub)
+                  setShowDisableSubModal(true)
+                }}
+                onAdd={() => setIsAddSubModalOpen(true)}
+                onLoadStart={() => setShowLoadingModal(true)}
+                onLoadEnd={() => setShowLoadingModal(false)}
+              /> : undefined
+          }
         </Suspense>
       </div>
       <CustomModal
@@ -398,7 +719,7 @@ export default function Giftcards({ searchParams }: PropsType) {
           <div className="mt-4" />
           <Button className="self-end" label="Save" variant="green" shape="rounded"
             icon={
-              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : <div />
+              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : undefined
             }
             onClick={addCategory}
           />
@@ -411,7 +732,7 @@ export default function Giftcards({ searchParams }: PropsType) {
           setIsEditModalOpen(false)
           setEditForm({
             name: '',
-            image: undefined,
+            image: '',
             id: 0,
             description: '',
           })
@@ -422,7 +743,7 @@ export default function Giftcards({ searchParams }: PropsType) {
           <h3 className="pb-4 text-xl font-bold text-dark dark:text-white sm:text-2xl">Edit Card</h3>
           <InputGroup
             label="Card Name"
-            placeholder="What is the card name?"
+            placeholder="Amazon Gift Card"
             type="text"
             className="w-full text-left mt-4"
             defaultValue={currentCard?.name}
@@ -433,10 +754,10 @@ export default function Giftcards({ searchParams }: PropsType) {
           <div className="mt-2" />
           <InputGroup
             label="Description"
-            placeholder="What is the card name?"
+            placeholder=""
             type="text"
             className="w-full text-left mt-4"
-            defaultValue={currentCard?.name}
+            defaultValue={currentCard?.description}
             handleChange={(e) => {
               setEditForm({ ...editForm, description: e.target.value })
             }}
@@ -447,7 +768,7 @@ export default function Giftcards({ searchParams }: PropsType) {
             className="self-end"
             label="Save" variant="green" shape="rounded"
             icon={
-              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : <div />
+              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : undefined
             }
           />
 
@@ -483,7 +804,7 @@ export default function Giftcards({ searchParams }: PropsType) {
             className="self-end"
             label="Save" variant="green" shape="rounded"
             icon={
-              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : <div />
+              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : undefined
             }
           />
 
@@ -515,8 +836,158 @@ export default function Giftcards({ searchParams }: PropsType) {
         }}
       />
 
+      {/* Sub Categories Start */}
+      <CustomModal
+        onClose={() => {
+          setIsAddSubModalOpen(false)
+          setAddSubForm({
+            name: '',
+            maxAmount: '',
+            minAmount: '',
+            nairaRate: ''
+          })
+        }}
+        isOpen={isAddSubModalOpen}>
+        <form
+          className="flex flex-col items-start">
+          <h3 className="pb-4 text-xl font-bold text-dark dark:text-white sm:text-2xl">Add Sub Category</h3>
+          <InputGroup
+            required
+            label="Name"
+            placeholder="eg. Apple Itunes (0$ - 100$)"
+            type="text"
+            className="w-full text-left mt-4"
+            handleChange={(e) => setAddSubForm({ ...addSubForm, name: e.target.value })}
+          />
+          <div className="mt-2" />
+          <InputGroup
+            required
+            label="Minimum Amount"
+            placeholder="0$ - 100$"
+            type="number"
+            className="w-full text-left mt-4"
+            handleChange={(e) => setAddSubForm({ ...addSubForm, minAmount: e.target.value })}
+          />
+          <div className="mt-2" />
+          <InputGroup
+            required
+            label="Maximum Amount"
+            placeholder="0$ - 100$"
+            type="number"
+            className="w-full text-left mt-4"
+            handleChange={(e) => setAddSubForm({ ...addSubForm, maxAmount: e.target.value })}
+          />
+          <div className="mt-2" />
+          <InputGroup
+            required
+            label="Naira Per USD"
+            placeholder="0$ - 100$"
+            type="number"
+            className="w-full text-left mt-4"
+            handleChange={(e) => setAddSubForm({ ...addSubForm, nairaRate: e.target.value })}
+          />
+          <div className="mt-4" />
+          <Button className="self-end w" label="Save" variant="green" shape="rounded"
+            icon={
+              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : undefined
+            }
+            onClick={addSubCategory}
+          />
+
+        </form>
+      </CustomModal>
+
+      <CustomModal
+        onClose={() => {
+          setIsEditSubModalOpen(false)
+          setEditSubForm({
+            id: 0,
+            maxAmount: '',
+            minAmount: '',
+            nairaRate: '',
+            name: '',
+          })
+        }}
+        isOpen={isEditSubModalOpen}>
+        <div
+          className="flex flex-col items-start">
+          <h3 className="pb-4 text-xl font-bold text-dark dark:text-white sm:text-2xl">Edit Card</h3>
+          <InputGroup
+            required
+            label="Name"
+            placeholder="eg. Apple Itunes (0$ - 100$)"
+            type="text"
+            className="w-full text-left mt-4"
+            value={editSubForm.name}
+            handleChange={(e) => setEditSubForm({ ...editSubForm, name: e.target.value })}
+          />
+          <div className="mt-2" />
+          <InputGroup
+            required
+            label="Minimum Amount"
+            placeholder="0$ - 100$"
+            type="number"
+            className="w-full text-left mt-4"
+            value={editSubForm.minAmount}
+            handleChange={(e) => setEditSubForm({ ...editSubForm, minAmount: e.target.value })}
+          />
+          <div className="mt-2" />
+          <InputGroup
+            required
+            label="Maximum Amount"
+            placeholder="0$ - 100$"
+            type="number"
+            className="w-full text-left mt-4"
+            value={editSubForm.maxAmount}
+            handleChange={(e) => setEditSubForm({ ...editSubForm, maxAmount: e.target.value })}
+          />
+          <div className="mt-2" />
+          <InputGroup
+            required
+            label="Naira Per USD"
+            placeholder="0$ - 100$"
+            type="number"
+            className="w-full text-left mt-4"
+            value={editSubForm.nairaRate}
+            handleChange={(e) => setEditSubForm({ ...editSubForm, nairaRate: e.target.value })}
+          />
+          <div className="mt-4" />
+          <Button
+            onClick={editSubCategory}
+            className="self-end"
+            label="Save" variant="green" shape="rounded"
+            icon={
+              submitting ? <IconSpinner color="text-white-500" speed="animate-spin" /> : undefined
+            }
+          />
+
+        </div>
+      </CustomModal>
+
+      <ConfirmationModal
+        isOpen={showEnableSubModal}
+        title={"Enable Sub Category"}
+        message={"Are you sure you want to enable sub-category?"}
+        onConfirm={enableSubcategory}
+        onCancel={() => {
+          setShowEnableSubModal(false)
+        }}
+        isDangerous
+      />
+
+      <ConfirmationModal
+        isOpen={showDisableSubModal}
+        title={"Disable Sub Category"}
+        message={"Are you sure you want to disable sub-category?"}
+        onConfirm={disableSubcategory}
+        onCancel={() => {
+          setShowDisableSubModal(false)
+        }}
+      />
+      {/* Sub Catogeries End */}
+
       <LoadingModal
-        isOpen={false}
+        isOpen={showLoadingModal}
       />
       <InfoModal
         isOpen={false}

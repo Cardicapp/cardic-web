@@ -23,19 +23,20 @@ const buttonVariants = cva(
       size: {
         default: "py-3.5 px-10 py-3.5 lg:px-8 xl:px-10",
         small: "py-[11px] px-6",
+        mid: "px-5 py-1 text-sm md:text-base",
       },
     },
     defaultVariants: {
       variant: "primary",
       shape: "default",
-      size: "default",
+      size: "mid",
     },
   },
 );
 
 type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
-    label: string;
+    label?: string;
     icon?: React.ReactNode;
   };
 
