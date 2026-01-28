@@ -5,16 +5,20 @@ interface OverviewCardProps {
     value: string | number;
     icon?: React.ReactNode;
     containerClassName?: string;
+    onClick?: () => void;
 }
 
 export const OverviewOne: React.FC<OverviewCardProps> = ({
     title,
     value,
     icon,
-    containerClassName
+    containerClassName,
+    onClick,
 }) => {
     return (
-        <div className={`rounded-lg border border-gray-200 bg-white p-6 shadow-sm ${containerClassName}`} >
+        <div 
+        onClick={onClick}
+        className={`rounded-lg border border-gray-200 bg-white p-6 shadow-sm ${containerClassName}`} >
             <div className="flex items-center justify-between">
                 <div>
                     <p className="text-sm font-medium text-dark-6">{title}</p>

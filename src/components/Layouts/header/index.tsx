@@ -19,7 +19,7 @@ export function Header() {
   let title = "Dashboard";
   let description = "Welcome back! Here's what's happening today.";
 
-  if (pathname === "/admin/card-trades") {
+  if (pathname === "/admin/cards") {
     title = "Giftcard Trades";
     description = "Manage all giftcard trades.";
   }

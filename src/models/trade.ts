@@ -16,4 +16,5 @@ export interface Trade {
   user: User | null;
   assignee: User | null;
   status: any;
+  createdAt: Date
 }

@@ -6,6 +6,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        danger: "bg-red-500 text-white",
         primary: "bg-primary text-white",
         green: "bg-green text-white",
         dark: "bg-dark text-white dark:bg-white/10",

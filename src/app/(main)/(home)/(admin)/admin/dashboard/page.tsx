@@ -50,6 +50,7 @@ export interface AnalyticsType {
 export interface OverviewData {
   activeTradesCount: number;
   newTradesCount: number;
+  assignedTradesCount: number;
   rejectedTradesCount: number;
   completedTradesCount: number;
   completedTradesAmount: number;

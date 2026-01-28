@@ -16,10 +16,19 @@ export const NAV_DATA = [
         ],
       },
       {
-        title: "Card Trade",
-        url: "/admin/card-trades",
+        title: "Gift Cards",
+        // url: "/admin/cards",
         icon: Icons.Table,
-        items: [],
+        items: [
+          {
+            title: "Cards",
+            url: "/admin/cards",
+          },
+          {
+            title: "Card Trades",
+            url: "/admin/card-trades",
+          },
+        ],
       },
       // {
       //   title: "Profile",
